@@ -1,0 +1,1 @@
+obj-m := fb_ssd1322.o

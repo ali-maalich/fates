@@ -1,38 +1,22 @@
+sudo raspi-config nonint do_spi 0
+sudo raspi-config nonint do_i2c 0
+
+sudo apt update -y
+sudo apt-get dist-upgrade -y
+
+sudo apt-get install git bc vim bison flex libssl-dev i2c-tools libncurses5-dev -y
+sudo apt-get install raspberrypi-kernel-headers
+
 cd /home/we
 
-git clone https://github.com/okyeron/norns-linux-bits.git
-git clone --depth=1 https://github.com/raspberrypi/linux
-
-cd ~/linux
-
-cp /usr/src/linux-headers-$(uname -r)/Module.symvers .
-cp /usr/src/linux-headers-$(uname -r)/.config .
-
-cp ~/norns-linux-bits/drivers-staging-fbtft/* /home/we/linux/drivers/staging/fbtft/
-#cp ~/norns-linux-bits/arch-arm-configs/bcm2709_defconfig /home/we/linux/arch/arm/configs/bcm2709_defconfig
-#cp ~/norns-linux-bits/arch-arm-configs/bcm2711_defconfig /home/we/linux/arch/arm/configs/bcm2711_defconfig
-#cp ~/norns-linux-bits/.config /home/we/linux/.config
-
-#cd ~/linux
-#KERNEL=kernel7
-#make mrproper
-#make bcm2709_defconfig
-
-make modules_prepare
-#make menuconfig
-##        Device Drivers  ---> Staging Drivers ---> Support for small TFT LCD display modules  --->
-##        <M>   SSD1322 driver
-
-make prepare
+cd fates/install/norns/files/ssd1322
 
 ## compile the drivers    
-make -C ~/linux SUBDIRS=drivers/staging/fbtft modules
+make -C /lib/modules/$(uname -r )/build M=$(pwd) modules
 
 ## move the drivers    
 sudo cp -v ~/linux/drivers/staging/fbtft/*.ko /lib/modules/$(uname -r)/kernel/drivers/staging/fbtft/
 
 sudo depmod -a
-
-rm ~/.config
 
 sudo reboot
