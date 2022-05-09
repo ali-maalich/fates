@@ -15,7 +15,7 @@ cd fates/install/norns/files/ssd1322
 make -C /lib/modules/$(uname -r )/build M=$(pwd) modules
 
 ## move the drivers    
-sudo cp -v ~/linux/drivers/staging/fbtft/*.ko /lib/modules/$(uname -r)/kernel/drivers/staging/fbtft/
+sudo cp -v fb_ssd1322.ko /lib/modules/$(uname -r)/kernel/drivers/staging/fbtft/
 
 sudo depmod -a
 
