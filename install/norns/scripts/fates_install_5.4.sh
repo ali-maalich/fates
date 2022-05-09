@@ -26,9 +26,9 @@ sudo cp -f /home/we/fates/install/norns/files/alsa.conf /usr/share/alsa
 sudo cp -f /home/we/fates/install/norns/files/dnsmasq.conf /etc/dnsmasq.conf
 
 # compile the overlays (buttons and encoders + ssd1322)
-sudo dtc -W no-unit_address_vs_reg -@ -I dts -O dtb -o /boot/overlays/fates-buttons-encoders.dtbo /home/we/fates/overlays/fates1.7-buttons-encoders-overlay.dts
+sudo dtc -W no-unit_address_vs_reg -@ -I dts -O dtb -o /boot/overlays/fates-buttons-encoders.dtbo /home/we/fates/overlays/fates-buttons-encoders.dts
 sudo dtc -W no-unit_address_vs_reg -@ -I dts -O dtb -o /boot/overlays/fates-buttons-4encoders.dtbo /home/we/fates/overlays/fates1.7-buttons-4encoders-overlay.dts
-sudo dtc -W no-unit_address_vs_reg -@ -I dts -O dtb -o /boot/overlays/fates-ssd1322.dtbo /home/we/fates/overlays/fates1.8-ssd1322-overlay.dts
+sudo dtc -W no-unit_address_vs_reg -@ -I dts -O dtb -o /boot/overlays/fates-ssd1322.dtbo /home/we/fates/overlays/fates-ssd1322.dts
 
 cd /home/we/norns-image
 ./setup.sh

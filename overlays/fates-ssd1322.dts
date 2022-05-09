@@ -1,0 +1,110 @@
+/dts-v1/;
+
+/ {
+	compatible = "brcm,bcm2835\0brcm,bcm2708\0brcm,bcm2709";
+
+	fragment@0 {
+		target = <0xffffffff>;
+
+		__overlay__ {
+			status = "okay";
+		};
+	};
+
+	fragment@1 {
+		target = <0xffffffff>;
+
+		__overlay__ {
+			status = "disabled";
+		};
+	};
+
+	fragment@2 {
+		target = <0xffffffff>;
+
+		__overlay__ {
+			status = "disabled";
+		};
+	};
+
+	fragment@3 {
+		target = <0xffffffff>;
+
+		__overlay__ {
+
+			ssd1322_pins {
+				brcm,pins = <0x0e 0x0f>;
+				brcm,function = <0x01 0x01>;
+				phandle = <0x01>;
+			};
+		};
+	};
+
+	fragment@4 {
+		target = <0xffffffff>;
+
+		__overlay__ {
+			#address-cells = <0x01>;
+			#size-cells = <0x00>;
+
+			ssd1322@0 {
+				compatible = "solomon,ssd1322";
+				reg = <0x00>;
+				pinctrl-names = "default";
+				pinctrl-0 = <0x01>;
+				spi-max-frequency = <0xf42400>;
+				buswidth = <0x08>;
+				rotate = <0x00>;
+				bgr = <0x00>;
+				fps = <0x14>;
+				reset-gpios = <0xffffffff 0x0e 0x01>;
+				dc-gpios = <0xffffffff 0x0f 0x00>;
+				debug = <0x03>;
+				phandle = <0x02>;
+			};
+		};
+	};
+
+	__overrides__ {
+		speed = <0x02 0x7370692d 0x6d61782d 0x66726571 0x75656e63 0x793a3000>;
+		rotate = [00 00 00 02 72 6f 74 61 74 65 3a 30 00];
+		bgr = [00 00 00 02 62 67 72 3a 30 00];
+		fps = [00 00 00 02 66 70 73 3a 30 00];
+		debug = <0x02 0x64656275 0x673a3000>;
+		dc-pin = <0x02 0x64632d67 0x70696f73 0x3a313700>;
+	};
+
+	__symbols__ {
+		ssd1322_pins = "/fragment@3/__overlay__/ssd1322_pins";
+		ssd1322 = "/fragment@4/__overlay__/ssd1322@0";
+	};
+
+	__fixups__ {
+		spi0 = "/fragment@0:target:0\0/fragment@4:target:0";
+		spidev0 = "/fragment@1:target:0";
+		spidev1 = "/fragment@2:target:0";
+		gpio = "/fragment@3:target:0\0/fragment@4/__overlay__/ssd1322@0:reset-gpios:0\0/fragment@4/__overlay__/ssd1322@0:dc-gpios:0";
+	};
+
+	__local_fixups__ {
+
+		fragment@4 {
+
+			__overlay__ {
+
+				ssd1322@0 {
+					pinctrl-0 = <0x00>;
+				};
+			};
+		};
+
+		__overrides__ {
+			speed = <0x00>;
+			rotate = <0x00>;
+			bgr = <0x00>;
+			fps = <0x00>;
+			debug = <0x00>;
+			dc-pin = <0x00>;
+		};
+	};
+};

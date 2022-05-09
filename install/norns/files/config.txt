@@ -56,14 +56,13 @@ dtoverlay=i2s-mmap
 enable_uart=1
 
 # DAC audio
-dtoverlay=rpi-proto
+dtoverlay=googlevoicehat-soundcard
 
 # Buttons and encoders
 #dtoverlay=fates-buttons-encoders
 
 # Alternate overlay for 4 encoders
-dtoverlay=fates-buttons-4encoders
-
+dtoverlay=fates-buttons-encoders
 
 # Screen
 dtoverlay=fates-ssd1322,rotate=180
